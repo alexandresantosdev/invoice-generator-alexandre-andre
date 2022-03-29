@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97ffba0a-e04f-4e5c-90fe-a269bc2baa16" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/InvoiceForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InvoiceItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InvoiceItem.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +43,8 @@
       <workItem from="1648492575939" duration="1922000" />
       <workItem from="1648544176875" duration="94000" />
       <workItem from="1648545516715" duration="1784000" />
+      <workItem from="1648547839484" duration="2660000" />
+      <workItem from="1648558600243" duration="598000" />
     </task>
     <servers />
   </component>

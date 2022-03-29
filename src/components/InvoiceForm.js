@@ -50,6 +50,7 @@ class InvoiceForm extends React.Component {
     var index = this.state.items.indexOf(items);
     this.state.items.splice(index, 1);
     this.setState(this.state.items);
+    this.handleCalculateTotal()
   };
   handleAddEvent(evt) {
     var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
@@ -194,7 +195,7 @@ class InvoiceForm extends React.Component {
                   }}>
                   <span className="fw-bold">Total:
                   </span>
-                  <span className="fw-bold">{this.state.currency}
+                  <span id="totalPrice" className="fw-bold">{this.state.currency}
                     {this.state.total || 0}</span>
                 </div>
               </Col>
