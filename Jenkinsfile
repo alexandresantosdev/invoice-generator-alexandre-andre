@@ -18,15 +18,20 @@ pipeline {
       stage('Run automated tests') {
         steps {
             sh 'apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb'
-            git 'https://github.com/andre00nogueira/software-quality-cypress.git'
-            sh 'npm prune'
-            sh 'npm cache clean --force'
-            sh 'npm i'
-            sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
-            sh 'rm -f mochawesome.json'
-            sh 'npx cypress run --config baseUrl="http://34.88.92.4" --browser ${BROWSER} --spec ${SPEC} --reporter mochawesome'
-            sh 'npx mochawesome-merge cypress/results/*.json -o mochawesome-report/mochawesome.json'
-            sh 'npx marge mochawesome-report/mochawesome.json'
+            sh 'rm -R qs_cypress'
+            sh 'mkdir qs_cypress/'
+            sh 'chmod -R 777 qs_cypress/'
+            dir ('qs_cypress/') {
+              git 'https://github.com/andre00nogueira/software-quality-cypress.git'
+              sh 'npm prune'
+              sh 'npm cache clean --force'
+              sh 'npm i'
+              sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
+              sh 'rm -f mochawesome.json'
+              sh 'npx cypress run --config baseUrl="http://34.88.92.4" --browser ${BROWSER} --spec ${SPEC} --reporter mochawesome'
+              sh 'npx mochawesome-merge cypress/results/*.json -o mochawesome-report/mochawesome.json'
+              sh 'npx marge mochawesome-report/mochawesome.json'
+            }
         }
         post {
         success {
