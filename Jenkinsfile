@@ -1,13 +1,12 @@
-pipeline{
+pipeline {
     agent any
 
-    tools {nodejs "nodejs"}
+    tools { nodejs 'nodejs' }
 
-    parameters{
-              string(name: 'SPEC', defaultValue:"cypress/integration/1-getting-started/todo.spec.js", description: "Enter the cypress script path that you want to execute")
-              choice(name: 'BROWSER', choices:['electron', 'chrome', 'edge', 'firefox'], description: "Select the browser to be used in your cypress tests")
-          }
-
+    parameters {
+    string(name: 'SPEC', defaultValue:'cypress/integration/1-getting-started/todo.spec.js', description: 'Enter the cypress script path that you want to execute')
+    choice(name: 'BROWSER', choices:['electron', 'chrome', 'edge', 'firefox'], description: 'Select the browser to be used in your cypress tests')
+    }
 
     stages {
       stage('Build/Deploy app to staging') {
@@ -18,6 +17,7 @@ pipeline{
 
       stage('Run automated tests') {
         steps {
+            sh 'apt-get install libgtk2.0-0 libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb'
             git 'https://github.com/andre00nogueira/software-quality-cypress.git'
             sh 'npm prune'
             sh 'npm cache clean --force'
@@ -29,8 +29,8 @@ pipeline{
             sh 'npx marge mochawesome-report/mochawesome.json'
         }
         post {
-                  success {
-                      publishHTML (
+        success {
+          publishHTML (
                           target : [
                               allowMissing: false,
                               alwaysLinkToLastBuild: true,
@@ -39,8 +39,8 @@ pipeline{
                               reportFiles: 'mochawesome.html',
                               reportName: 'My Reports',
                               reportTitles: 'The Report'])
-                     }
-              }
+        }
+        }
       }
 
       stage('Perform manual testing') {
@@ -51,10 +51,9 @@ pipeline{
 
       stage('Release to production') {
         steps {
-                timeout(activity: true, time: 5) { input 'Proceed to production?'
-            }
+        timeout(activity: true, time: 5) { input 'Proceed to production?'
+        }
         }
       }
-
     }
 }
