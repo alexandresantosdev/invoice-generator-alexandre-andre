@@ -22,7 +22,8 @@ pipeline{
 
       stage('Release to production') {
         steps {
-          echo 'Release to production'
+                timeout(activity: true, time: 5) { input 'Proceed to production?'
+            }
         }
       }
 
