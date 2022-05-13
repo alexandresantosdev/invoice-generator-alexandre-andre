@@ -17,19 +17,21 @@ pipeline {
 
       stage('Run automated tests') {
         steps {
-            sh 'rm -R /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
-            sh 'mkdir /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
-            sh 'chmod -R 777 /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
-            dir ('/home/usr_2210617_my_ipleiria_pt/qs_cypress/') {
-              git 'https://github.com/andre00nogueira/software-quality-cypress.git'
-              sh 'npm prune'
-              sh 'npm cache clean --force'
-              sh 'npm i'
-              sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
-              sh 'rm -f mochawesome.json'
-              sh 'npx cypress run --config baseUrl="http://34.88.92.4" --browser ${BROWSER} --spec ${SPEC} --reporter mochawesome'
-              sh 'npx mochawesome-merge cypress/results/*.json -o mochawesome-report/mochawesome.json'
-              sh 'npx marge mochawesome-report/mochawesome.json'
+            dir ('/home/usr_2210617_my_ipleiria_pt/') {
+                sh 'rm -R /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
+                sh 'mkdir /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
+                sh 'chmod -R 777 /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
+                dir ('qs_cypress/') {
+                  git 'https://github.com/andre00nogueira/software-quality-cypress.git'
+                  sh 'npm prune'
+                  sh 'npm cache clean --force'
+                  sh 'npm i'
+                  sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
+                  sh 'rm -f mochawesome.json'
+                  sh 'npx cypress run --config baseUrl="http://34.88.92.4" --browser ${BROWSER} --spec ${SPEC} --reporter mochawesome'
+                  sh 'npx mochawesome-merge cypress/results/*.json -o mochawesome-report/mochawesome.json'
+                  sh 'npx marge mochawesome-report/mochawesome.json'
+                }
             }
         }
         post {
