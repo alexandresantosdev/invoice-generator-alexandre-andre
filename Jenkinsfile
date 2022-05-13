@@ -17,7 +17,7 @@ pipeline {
 
       stage('Run automated tests') {
         steps {
-            dir ('/home/usr_2210617_my_ipleiria_pt/') {
+            dir ('/home/usr_2210617_my_ipleiria_pt/jenkins') {
                 sh 'rm -R qs_cypress/'
                 sh 'mkdir qs_cypress/'
                 sh 'chmod -R 777 qs_cypress/'
