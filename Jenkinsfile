@@ -17,7 +17,7 @@ pipeline {
 
       stage('Run automated tests') {
         steps {
-            sh 'rm -R qs_cypress'
+            sh 'rm -R qs_cypress/'
             sh 'mkdir qs_cypress/'
             sh 'chmod -R 777 qs_cypress/'
             dir ('qs_cypress/') {
