@@ -17,10 +17,10 @@ pipeline {
 
       stage('Run automated tests') {
         steps {
-            sh 'rm -R qs_cypress/'
-            sh 'mkdir qs_cypress/'
-            sh 'chmod -R 777 qs_cypress/'
-            dir ('qs_cypress/') {
+            sh 'rm -R /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
+            sh 'mkdir /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
+            sh 'chmod -R 777 /home/usr_2210617_my_ipleiria_pt/qs_cypress/'
+            dir ('/home/usr_2210617_my_ipleiria_pt/qs_cypress/') {
               git 'https://github.com/andre00nogueira/software-quality-cypress.git'
               sh 'npm prune'
               sh 'npm cache clean --force'
