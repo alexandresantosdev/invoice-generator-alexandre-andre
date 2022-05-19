@@ -29,7 +29,7 @@ pipeline {
                   sh 'npm install npx'
                   sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
                   sh 'rm -f mochawesome.json'
-                  sh 'npx cypress run --config baseUrl="localhost:8080"  --config-file cypress_pipeline.json --browser ${BROWSER} --spec ${SPEC} --reporter mochawesome'
+                  sh 'npx cypress run  --config-file cypress_pipeline.json --browser ${BROWSER} --spec ${SPEC} --reporter mochawesome'
                   sh 'npx mochawesome-merge cypress/results/*.json -o mochawesome-report/mochawesome.json'
                   sh 'npx marge mochawesome-report/mochawesome.json'
                 }
