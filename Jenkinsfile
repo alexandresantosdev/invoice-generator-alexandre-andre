@@ -26,6 +26,7 @@ pipeline {
                   sh 'npm prune'
                   sh 'npm cache clean --force'
                   sh 'npm i'
+                  sh 'npm install npx'
                   sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
                   sh 'rm -f mochawesome.json'
                   sh 'npx cypress run --config baseUrl="http://34.88.92.4:8080" --browser ${BROWSER} --spec ${SPEC} --reporter mochawesome'
