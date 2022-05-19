@@ -31,7 +31,7 @@ pipeline {
                   sh 'npm install npx'
                   sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
                   sh 'rm -f mochawesome.json'
-                  sh 'npx cypress run  --config-file cypress_pipeline.json --spec 'cypress/integration/generateInvoices.feature,cypress/integration/manageInvoiceItems.feature' --reporter mochawesome'
+                  sh 'npx cypress run  --config-file cypress_pipeline.json --spec ''cypress/integration/generateInvoices.feature,cypress/integration/manageInvoiceItems.feature'' --reporter mochawesome'
                   sh 'npx mochawesome-merge cypress/results/*.json -o mochawesome-report/mochawesome.json'
                   sh 'npx marge mochawesome-report/mochawesome.json'
                 }
