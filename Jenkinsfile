@@ -35,19 +35,7 @@ pipeline {
                 }
             }
         }
-        post {
-        success {
-          publishHTML (
-                          target : [
-                              allowMissing: false,
-                              alwaysLinkToLastBuild: true,
-                              keepAll: true,
-                              reportDir: 'mochawesome-report',
-                              reportFiles: 'mochawesome.html',
-                              reportName: 'My Reports',
-                              reportTitles: 'The Report'])
-        }
-        }
+
       }
 
       stage('Perform manual testing') {
