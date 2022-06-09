@@ -16,28 +16,37 @@ pipeline {
           npm start''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
         }
       }
-
-      stage('Run automated tests') {
-        steps {
-            dir ('/home/usr_2210617_my_ipleiria_pt/jenkins') {
-                sh 'rm -R qs_cypress/'
-                sh 'mkdir qs_cypress/'
-                sh 'chmod -R 777 qs_cypress/'
-                dir ('qs_cypress/') {
-                  git 'https://github.com/andre00nogueira/software-quality-cypress.git'
-                  sh 'npm prune'
-                  sh 'npm cache clean --force'
-                  sh 'npm i'
-                  sh 'npm install npx'
-                  sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
-                  sh 'rm -f mochawesome.json'
-                  sh 'npx cypress run  --config-file cypress_pipeline.json --reporter mochawesome'
+        stage('Run tests'){
+            parallel {
+              stage('Run automated tests') {
+                steps {
+                    dir ('/home/usr_2210617_my_ipleiria_pt/jenkins') {
+                        sh 'rm -R qs_cypress/'
+                        sh 'mkdir qs_cypress/'
+                        sh 'chmod -R 777 qs_cypress/'
+                        dir ('qs_cypress/') {
+                          git 'https://github.com/andre00nogueira/software-quality-cypress.git'
+                          sh 'npm prune'
+                          sh 'npm cache clean --force'
+                          sh 'npm i'
+                          sh 'npm install npx'
+                          sh 'npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator'
+                          sh 'rm -f mochawesome.json'
+                          sh 'npx cypress run  --config-file cypress_pipeline.json --reporter mochawesome'
+                        }
+                    }
                 }
+              }
+              stage('Static Analysis'){
+                  environment {
+                   SCANNER_HOME = tool 'SonarScanner'
+                   }
+                   steps {
+                   sh "$SCANNER_HOME/bin/sonar-scanner"
+                   }
+              }
             }
         }
-
-      }
-
       stage('Perform manual testing') {
         steps {
           echo 'Perform manual testing'
