@@ -18,14 +18,14 @@ pipeline {
                         npm start''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                     }
                 }
-                stage('Performance'){
+                /*stage('Performance'){
                     agent {
                         label 'jmeter'
                     }
                     steps{
                         sh 'jmeter -n -t ApplicationPlan.jmx'
                     }
-                }
+                }*/
             }
         }
         stage('Run tests'){
