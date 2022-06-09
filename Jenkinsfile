@@ -56,7 +56,8 @@ pipeline {
       stage('Release to production') {
         steps {
                   sh 'rm -R node_modules/ || true'
-                  sh 'ls'
+                  sh 'rm -R .scannerwork || true'
+                  sh 'ls -lf'
                   sshPublisher(publishers: [sshPublisherDesc(configName: 'production', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/usr_2210623_my_ipleiria_pt/app/
                   npm install
                   npm start''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
