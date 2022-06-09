@@ -9,13 +9,25 @@ pipeline {
     }
 
     stages {
-      stage('Build/Deploy app to staging') {
-        steps {
-          sshPublisher(publishers: [sshPublisherDesc(configName: 'staging', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/usr_2210617_my_ipleiria_pt/app/ 
-          npm install 
-          npm start''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+        stage('Deploying to Staging server'){
+            parallel{
+                stage('Build/Deploy app to staging') {
+                    steps {
+                        sshPublisher(publishers: [sshPublisherDesc(configName: 'staging', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/usr_2210617_my_ipleiria_pt/app/
+                        npm install
+                        npm start''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    }
+                }
+                stage('Performance'){
+                    agent {
+                        label 'jmeter'
+                    }
+                    steps{
+                        sh 'jmeter -n -t ApplicationPlan.jmx'
+                    }
+                }
+            }
         }
-      }
         stage('Run tests'){
             parallel {
               stage('Run automated tests') {
