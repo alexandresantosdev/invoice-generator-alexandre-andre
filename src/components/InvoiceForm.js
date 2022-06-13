@@ -18,10 +18,10 @@ class InvoiceForm extends React.Component {
       currentDate: '',
       invoiceNumber: 1,
       dateOfIssue: '',
-      billTo: '',
+      billTo: localStorage.getItem('billTo',''),
       billToEmail: '',
       billToAddress: '',
-      billFrom: '',
+      billFrom: localStorage.getItem('billFrom',''),
       billFromEmail: '',
       billFromAddress: '',
       notes: '',
@@ -109,6 +109,7 @@ class InvoiceForm extends React.Component {
     this.handleCalculateTotal();
   };
   editField = (event) => {
+    localStorage.setItem(event.target.name,event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     });
