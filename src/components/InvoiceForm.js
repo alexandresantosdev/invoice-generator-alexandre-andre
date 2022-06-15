@@ -22,6 +22,7 @@ class InvoiceForm extends React.Component {
       billToEmail: '',
       billToAddress: '',
       shipToAddress: '',
+      sameAsShipping: false,
       billFrom: localStorage.getItem('billFrom',''),
       billFromEmail: '',
       billFromAddress: '',
@@ -116,6 +117,11 @@ class InvoiceForm extends React.Component {
     });
     this.handleCalculateTotal();
   };
+  toggleSameAsShipping = () => {
+    this.setState({
+      sameAsShipping: !this.state.sameAsShipping
+    });
+  }
   onCurrencyChange = (selectedOption) => {
     this.setState(selectedOption);
   };
@@ -159,9 +165,9 @@ class InvoiceForm extends React.Component {
                 <Form.Control placeholder={"Who is this invoice to?"} rows={3} value={this.state.billTo} type="text" name="billTo" className="my-2" onChange={(event) => this.editField(event)} autoComplete="name" required="required"/>
                 <Form.Control placeholder={"Email address"} value={this.state.billToEmail} type="email" name="billToEmail" className="my-2" onChange={(event) => this.editField(event)} autoComplete="email" required="required"/>
                 <Form.Control placeholder={"Shipping address"} value={this.state.shipToAddress} type="text" name="shipToAddress" className="my-2" autoComplete="shipToAddress" onChange={(event) => this.editField(event)}/>
-                <Form.Control placeholder={"Billing address"} value={this.state.billToAddress} type="text" name="billToAddress" className="my-2" autoComplete="address" onChange={(event) => this.editField(event)} required="required"/>
+                <Form.Control placeholder={"Billing address"} readOnly={this.state.sameAsShipping} value={this.state.sameAsShipping ? this.state.shipToAddress : this.state.billToAddress} type="text" name="billToAddress" className="my-2" autoComplete="address" onChange={(event) => this.editField(event)} required="required"/>
                 <div>
-                  <input type="checkbox" id="sameAsShipping" name="sameAsShipping"></input>
+                  <input type="checkbox" id="sameAsShipping" name="sameAsShipping" checked={this.state.checked} onClick={() => this.toggleSameAsShipping()}></input>
                   <label htmlFor="sameAsShipping">Same as Shipping</label>
                 </div>
               </Col>
