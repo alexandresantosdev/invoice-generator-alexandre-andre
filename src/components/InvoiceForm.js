@@ -17,7 +17,7 @@ class InvoiceForm extends React.Component {
       currency: '$',
       currentDate: '',
       invoiceNumber: 1,
-      dateOfIssue: '',
+      dateOfIssue: localStorage.getItem('dateOfIssue',''),
       billTo: localStorage.getItem('billTo',''),
       billToEmail: localStorage.getItem('billToEmail',''),
       billToAddress: localStorage.getItem('billToAddress',''),
