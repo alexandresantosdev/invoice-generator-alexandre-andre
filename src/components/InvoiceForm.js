@@ -29,10 +29,10 @@ class InvoiceForm extends React.Component {
       notes: '',
       total: '0.00',
       subTotal: '0.00',
-      taxRate: '',
-      taxAmmount: '0.00',
-      discountRate: '',
-      discountAmmount: '0.00'
+      taxRate: localStorage.getItem('taxRate',''),
+      taxAmmount: localStorage.getItem('taxAmmount','0.00'),
+      discountRate: localStorage.getItem('discountRate',''),
+      discountAmmount: localStorage.getItem('discountAmmount','0.00')
     };
     this.state.items = [
       {
