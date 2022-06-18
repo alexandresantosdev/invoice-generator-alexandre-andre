@@ -16,7 +16,7 @@ class InvoiceForm extends React.Component {
       isOpen: false,
       currency: '$',
       currentDate: '',
-      invoiceNumber: 1,
+      invoiceNumber: localStorage.getItem('invoiceNumber',1),
       dateOfIssue: localStorage.getItem('dateOfIssue',''),
       billTo: localStorage.getItem('billTo',''),
       billToEmail: localStorage.getItem('billToEmail',''),
@@ -26,7 +26,7 @@ class InvoiceForm extends React.Component {
       billFrom: localStorage.getItem('billFrom',''),
       billFromEmail: localStorage.getItem('billFromEmail',''),
       billFromAddress: localStorage.getItem('billFromAddress',''),
-      notes: '',
+      notes: localStorage.getItem('notes',''),
       total: '0.00',
       subTotal: '0.00',
       taxRate: localStorage.getItem('taxRate',''),
@@ -69,6 +69,7 @@ class InvoiceForm extends React.Component {
   }
   handleCalculateTotal() {
     var items = this.state.items;
+    localStorage.setItem("items",JSON.stringify(items));
     let subTotal = 0;
 
     items.map(function(items) {
