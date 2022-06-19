@@ -34,15 +34,19 @@ class InvoiceForm extends React.Component {
       discountRate: localStorage.getItem('discountRate',''),
       discountAmmount: localStorage.getItem('discountAmmount','0.00')
     };
-    this.state.items = [
-      {
-        id: 0,
-        name: '',
-        description: '',
-        price: '1.00',
-        quantity: 1
-      }
-    ];
+    this.state.items = JSON.parse(localStorage.getItem('items'));
+    if(!this.state.items){
+      this.state.items = [
+        {
+          id: 0,
+          name: '',
+          description: '',
+          price: '1.00',
+          quantity: 1
+        }
+      ];
+    }
+
     this.editField = this.editField.bind(this);
   }
   componentDidMount(prevProps) {
