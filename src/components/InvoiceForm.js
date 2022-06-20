@@ -173,7 +173,7 @@ class InvoiceForm extends React.Component {
                 <Form.Control placeholder={"Billing address"} readOnly={this.state.sameAsShipping} value={this.state.sameAsShipping ? this.state.shipToAddress : this.state.billToAddress} type="text" name="billToAddress" className="my-2" autoComplete="address" onChange={(event) => this.editField(event)} required="required"/>
                 <div>
                   <input type="checkbox" id="sameAsShipping" name="sameAsShipping" checked={this.state.checked} onClick={() => this.toggleSameAsShipping()}></input>
-                  <label htmlFor="sameAsShipping">Same as Shipping</label>
+                  <label style={{ paddingLeft: "10px" }} htmlFor="sameAsShipping">Same as Shipping</label>
                 </div>
               </Col>
               <Col>
