@@ -14,7 +14,8 @@ class InvoiceForm extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      currency: localStorage.getItem('currency','$'),
+      currencyVersioned: localStorage.getItem('currencyVersioned') || '$ usd',
+      currency: localStorage.getItem('currency') || '$',
       currentDate: '',
       invoiceNumber: localStorage.getItem('invoiceNumber') | 1,
       dateOfIssue: localStorage.getItem('dateOfIssue') || '',
@@ -130,6 +131,8 @@ class InvoiceForm extends React.Component {
   }
   onCurrencyChange = (selectedOption) => {
     this.setState(selectedOption);
+    localStorage.setItem("currency",selectedOption.currency);
+    localStorage.setItem("currencyVersioned",selectedOption.currencyVersioned);
   };
   openModal = (event) => {
     event.preventDefault()
@@ -230,13 +233,13 @@ class InvoiceForm extends React.Component {
             <InvoiceModal showModal={this.state.isOpen} closeModal={this.closeModal} info={this.state} items={this.state.items} currency={this.state.currency} subTotal={this.state.subTotal} taxAmmount={this.state.taxAmmount} discountAmmount={this.state.discountAmmount} total={this.state.total}/>
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Currency:</Form.Label>
-              <Form.Select onChange={event => this.onCurrencyChange({currency: event.target.value})} className="btn btn-light my-1" aria-label="Change Currency">
-                <option value="$">USD (United States Dollar)</option>
+              <Form.Select id="name" value={this.state.currencyVersioned} onChange={event => this.onCurrencyChange({currency: event.target.value.split(" ")[0], currencyVersioned: event.target.value})} className="btn btn-light my-1" aria-label="Change Currency">
+                <option value="$ usd">USD (United States Dollar)</option>
                 <option value="£">GBP (British Pound Sterling)</option>
                 <option value="¥">JPY (Japanese Yen)</option>
-                <option value="$">CAD (Canadian Dollar)</option>
-                <option value="$">AUD (Australian Dollar)</option>
-                <option value="$">SGD (Signapore Dollar)</option>
+                <option value="$ cad">CAD (Canadian Dollar)</option>
+                <option value="$ aud">AUD (Australian Dollar)</option>
+                <option value="$ sgd">SGD (Signapore Dollar)</option>
                 <option value="¥">CNY (Chinese Renminbi)</option>
                 <option value="₿">BTC (Bitcoin)</option>
               </Form.Select>
